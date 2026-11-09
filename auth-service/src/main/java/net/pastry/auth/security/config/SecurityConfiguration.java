@@ -1,5 +1,7 @@
-package net.pastry.auth.config;
+package net.pastry.auth.security.config;
 
+import lombok.RequiredArgsConstructor;
+import net.pastry.auth.security.handler.DelegatingSecurityExceptionHandler;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfiguration {
+    private final DelegatingSecurityExceptionHandler securityExceptionHandler;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -32,6 +36,10 @@ public class SecurityConfiguration {
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(securityExceptionHandler)
+                        .accessDeniedHandler(securityExceptionHandler)
                 )
                 .build();
     }
