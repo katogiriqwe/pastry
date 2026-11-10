@@ -1,6 +1,7 @@
 package net.pastry.auth.account.service;
 
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.pastry.auth.account.exception.UsernameAlreadyTakenException;
@@ -20,7 +21,7 @@ public class RegistrationService {
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
 
-    public User register(String username, String rawPassword) {
+    public User register(@NonNull String username, @NonNull String rawPassword) {
         var password = passwordEncoder.encode(rawPassword);
         var user = User.create(username, password);
 
