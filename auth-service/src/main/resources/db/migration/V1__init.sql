@@ -1,12 +1,12 @@
 CREATE TABLE users(
     id UUID PRIMARY KEY,
-    username VARCHAR(32) NOT NULL,
+    name VARCHAR(32) NOT NULL,
     password_hash VARCHAR(100) NOT NULL,
     role VARCHAR(16) NOT NULL DEFAULT 'USER',
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE UNIQUE INDEX ux_users_username_lower ON users (lower(username));
+CREATE UNIQUE INDEX ux_users_name_lower ON users (lower(name));
 
 CREATE TABLE refresh_tokens(
     id UUID PRIMARY KEY,
