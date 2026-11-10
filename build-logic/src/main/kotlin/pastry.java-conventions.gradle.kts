@@ -30,6 +30,8 @@ dependencies {
     testCompileOnly(lombok)
     testAnnotationProcessor(lombok)
 
+    testAnnotationProcessor(springBootBom)
+
     testImplementation(libs.findBundle("test").get())
     testRuntimeOnly(libs.findLibrary("junit-platform-launcher").get())
 }
