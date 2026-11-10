@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class UserTest {
+class UserTest {
     @Test
     void create_setsDefaultRoleUser() {
         var user = User.create("name", "hashed");
