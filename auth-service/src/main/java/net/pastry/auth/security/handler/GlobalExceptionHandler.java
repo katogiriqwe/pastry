@@ -1,4 +1,4 @@
-package net.pastry.auth.exception.handler;
+package net.pastry.auth.security.handler;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
