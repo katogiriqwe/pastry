@@ -15,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+    private static final String[] AUTH_ENDPOINTS = {"/auth/register", "/auth/login", "/auth/refresh", "/auth/logout"};
+    private static final String[] SWAGGER_ENDPOINTS = {"/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**"};
+
     private final DelegatingSecurityExceptionHandler securityExceptionHandler;
 
     @Bean
@@ -26,10 +29,10 @@ public class SecurityConfiguration {
                 .logout(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers(HttpMethod.POST,
-                                "/auth/register", "/auth/login", "/auth/refresh", "/auth/logout"
+                                AUTH_ENDPOINTS
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/.well-known/jwks.json").permitAll()
-                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
                         .requestMatchers(EndpointRequest.to(HealthEndpoint.class)).permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
